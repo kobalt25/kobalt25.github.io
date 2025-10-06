@@ -3,16 +3,67 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kobalt25</title>
+    <title>Computer Science Portfolio - Kobalt25</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+      window.projects = [
+        { name: 'Sudoku Generator', description: 'A simple C++ program to generate solvable sudoku puzzles.', tags: ['C++'] },
+        { name: 'Portfolio Website', description: 'Personal portfolio built with HTML, CSS, and Alpine.js.', tags: ['HTML', 'CSS', 'Alpine.js'] }
+      ];
+    </script>
   </head>
   <body>
-    <script src="index.js"></script>
-    <h1>Kobalt25</h1>
-    <p>Welcome to the Kobalt25 project!</p>
-    <p>This is a simple HTML page to get you started.</p>
-    <p>Feel free to modify and expand it as needed.</p>
-    
+    <header>
+      <h1 x-data="{ message: 'Portfolio' }" x-text="message"></h1>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Projects Section -->
+      <section id="projects" x-data="{
+        search: '',
+        get filteredProjects() {
+          if (!this.search) return window.projects;
+          return window.projects.filter(
+            p => p.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                 p.description.toLowerCase().includes(this.search.toLowerCase()) ||
+                 p.tags.some(tag => tag.toLowerCase().includes(this.search.toLowerCase()))
+          );
+        }
+      }">
+        <h2>Projects</h2>
+        <input x-model="search" placeholder="Search projects..." />
+        <ul>
+          <template x-for="project in filteredProjects" :key="project.name">
+            <li>
+              <strong x-text="project.name"></strong><br>
+              <span x-text="project.description"></span><br>
+              <small>
+                <span x-text="project.tags.join(', ')"></span>
+              </small>
+            </li>
+          </template>
+        </ul>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" x-data="{ skills: ['Python', 'C++', 'HTML', 'CSS', 'Git'] }">
+        <h2>Skills</h2>
+        <ul>
+          <template x-for="skill in skills" :key="skill">
+            <li x-text="skill"></li>
+          </template>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer>
+      Kobalt25 
+    </footer>
   </body>
 </html>
