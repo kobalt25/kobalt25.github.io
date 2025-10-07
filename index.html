@@ -8,8 +8,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
       window.projects = [
-        { name: 'Sudoku Generator', description: 'A simple C++ program to generate solvable sudoku puzzles.', tags: ['C++'] },
-        { name: 'Portfolio Website', description: 'Personal portfolio built with HTML, CSS, and Alpine.js.', tags: ['HTML', 'CSS', 'Alpine.js'] }
+        { name: 'Sudoku Generator', description: 'A simple C++ program to generate solvable sudoku puzzles.', tags: ['C++'] , link: 'https://github.com/kobalt25/Sudoku-Generator'},
+        { name: 'Portfolio Website', description: 'Personal portfolio built with HTML, CSS, and Alpine.js.', tags: ['HTML', 'CSS', 'Alpine.js'] , link: 'https://kobalt25.github.io/' }
       ];
     </script>
   </head>
@@ -21,6 +21,7 @@
         <a href="#skills">Skills</a>
       </nav>
     </header>
+    <div id="grad"></div>
 
     <main>
       <!-- Projects Section -->
@@ -40,7 +41,10 @@
         <ul>
           <template x-for="project in filteredProjects" :key="project.name">
             <li>
-              <strong x-text="project.name"></strong><br>
+              <strong x-text="project.name"
+                      @click="window.open(project.link, '_blank')"
+                      class="cursor-pointer text-blue-600 hover:underline"
+              ></strong><br>
               <span x-text="project.description"></span><br>
               <small>
                 <span x-text="project.tags.join(', ')"></span>
